@@ -2,8 +2,8 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 
-import javafx.application.Platform;
-import javafx.embed.swing.JFXPanel;
+//import javafx.application.Platform;
+//import javafx.embed.swing.JFXPanel;
 
 public class Driver {
 // http://zetcode.com/tutorials/javagamestutorial/animation/

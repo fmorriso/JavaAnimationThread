@@ -26,15 +26,16 @@ public class Board extends JPanel implements Runnable {
 	}
 
 	private void loadImage() {
-
+		System.out.println("loadImage-top");
 		ImageIcon ii = new ImageIcon("/images/star.png");
-		star = ii.getImage();
+		star = ii.getImage();		
+		System.out.println("loadImage-bottom");
 	}
 
 	private void initBoard() {
 		this.B_HEIGHT = this.frameSize.height;
 		this.B_WIDTH = this.frameSize.width;
-		
+
 		setBackground(Color.BLACK);
 		setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
 

@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 public class ThreadAnimationExample extends JFrame {
 
 	private Dimension frameSize;
-	
+
 	public ThreadAnimationExample(Dimension frameSize) {
 		this.frameSize = frameSize;
 		initUI();
