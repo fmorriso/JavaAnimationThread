@@ -18,7 +18,7 @@ public class Driver {
 		final int frameWidth = frameHeight;
 
 		Dimension frameSize = new Dimension(frameWidth, frameHeight);
-		System.out.format("frame width=%d, height=%d%n", frameWidth, frameHeight);
+		//System.out.format("frame width=%d, height=%d%n", frameWidth, frameHeight);
 
 		EventQueue.invokeLater(() -> {
 			ThreadAnimationExample ex = new ThreadAnimationExample(frameSize);
