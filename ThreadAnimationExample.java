@@ -14,6 +14,9 @@ public class ThreadAnimationExample extends JFrame {
 
 	private void initUI() {
 
+		setSize(frameSize);
+		setPreferredSize(frameSize);
+		
 		add(new Board(frameSize));
 
 		setResizable(false);
