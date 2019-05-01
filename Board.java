@@ -23,15 +23,20 @@ public class Board extends JPanel implements Runnable {
 	private Image star;
 	private Thread animator;
 	private int x, y;
-	private Dimension frameSize;
+	private Dimension panelSize;
 
 	public Board(Dimension parentSize) {
-		frameSize = parentSize;
+		// rememver the size of our parent
+		panelSize = parentSize;
 
-		B_HEIGHT = frameSize.height * 90 / 100;
-		B_WIDTH = frameSize.width * 90 / 100;
-		INITIAL_X = 1;// frameSize.width * 1 / 100;
-		INITIAL_Y = 1;//frameSize.height * 1 / 100;
+		// initial limit of how far the image will move within this JPanel.
+		// we will further limit the movement once we get the scaled image.
+		B_HEIGHT = panelSize.height * 90 / 100;
+		B_WIDTH = panelSize.width * 90 / 100;
+		
+		INITIAL_X = 1;
+		INITIAL_Y = 1;
+		
 		initBoard();
 	}
 
@@ -41,12 +46,14 @@ public class Board extends JPanel implements Runnable {
 		try {
 			Image image = ImageIO.read(new File("images/star.png"));
 			System.out.format("Image original width=%d, height=%d%n", image.getWidth(null), image.getHeight(null));
-			int width = (int) (this.frameSize.width / 10.0);
-			int height = (int) (this.frameSize.height / 10.0);
+			
+			// scale the image to 10% of whatever screen size we are running on.
+			int width = (int) (this.panelSize.width / 10.0);
+			int height = (int) (this.panelSize.height / 10.0);
 			star = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 			System.out.format("Image scaled width=%d, height=%d%n", star.getWidth(null), star.getHeight(null));
-			//INITIAL_X = width + 5;
-			//INITIAL_Y = height + 5;
+			
+			// adjust the maximum movement limits of the image
 			B_WIDTH -= width / 2;
 			B_HEIGHT -= height / 2;
 		} catch (IOException e) {
@@ -63,8 +70,7 @@ public class Board extends JPanel implements Runnable {
 		loadImage();
 
 		x = INITIAL_X;
-		y = INITIAL_Y;
-		System.out.format("Initial x,y = (%d, %d)%n", x, y);
+		y = INITIAL_Y;		
 	}
 
 	@Override
