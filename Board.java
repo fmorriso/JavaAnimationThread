@@ -22,7 +22,7 @@ public class Board extends JPanel implements Runnable {
 	private int B_HEIGHT = 350;
 	private int INITIAL_X = -40;
 	private int INITIAL_Y = -40;
-	private final int DELAY = 25;
+	private final int DELAY = 25 / 2;
 
 	private Image scaledImage;
 	private Thread animator;
@@ -101,8 +101,6 @@ public class Board extends JPanel implements Runnable {
 	}
 
 	private void drawStar(Graphics g) {
-
-		// Image simg = new Image(scaledImage);
 		g.drawImage(scaledImage, x, y, this);
 		Toolkit.getDefaultToolkit().sync();
 	}
@@ -114,7 +112,7 @@ public class Board extends JPanel implements Runnable {
 		x += B_WIDTH * 0.6 / 100.0;
 		y += B_HEIGHT * 0.6 / 100.0;
 
-		if (y > B_HEIGHT) {
+		if (y > B_HEIGHT || x > B_WIDTH) {
 
 			y = INITIAL_Y;
 			x = INITIAL_X;
