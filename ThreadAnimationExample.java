@@ -1,3 +1,5 @@
+// Simple Java Animation Example using Swing components.
+// Reference: http://zetcode.com/tutorials/javagamestutorial/animation/
 import java.awt.Dimension;
 //
 import javax.swing.JFrame;

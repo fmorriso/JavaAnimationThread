@@ -1,3 +1,5 @@
+// Simple Java Animation Example using Swing components.
+// Reference: http://zetcode.com/tutorials/javagamestutorial/animation/
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -28,16 +30,17 @@ public class Board extends JPanel implements Runnable {
 	private Dimension panelSize;
 
 	public Board(Dimension parentSize) {
-		// rememver the size of our parent
+
+		// remember the size of our parent
 		panelSize = parentSize;
 
 		// initial limit of how far the image will move within this JPanel.
-		// we will further limit the movement once we get the scaled image.
-		B_HEIGHT = panelSize.height * 90 / 100;
-		B_WIDTH = panelSize.width * 90 / 100;
+		// We will further limit the movement once we get the scaled image.
+		B_HEIGHT = panelSize.height * 92 / 100;
+		B_WIDTH = panelSize.width * 92 / 100;
 		
-		INITIAL_X = 1;
-		INITIAL_Y = 1;
+		INITIAL_X = 2;
+		INITIAL_Y = 2;
 		
 		initBoard();
 	}
