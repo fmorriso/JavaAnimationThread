@@ -4,14 +4,16 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
+//import javax.swing.Icon;
+//import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class Board extends JPanel implements Runnable {
 
 	private int B_WIDTH = 350;
@@ -44,7 +46,15 @@ public class Board extends JPanel implements Runnable {
 
 		// load and scale the image
 		try {
-			Image image = ImageIO.read(new File("images/star.png"));
+			File f = new File("images/spaceinvaders/player.png");
+			if(!f.exists()){
+				String errorMessage = String.format("file %s does not exist", f.getAbsolutePath());
+				System.out.println(errorMessage);
+				this.setVisible(false);				
+				throw new FileNotFoundException(errorMessage);
+
+			}
+			Image image = ImageIO.read(f);
 			System.out.format("Image original width=%d, height=%d%n", image.getWidth(null), image.getHeight(null));
 			
 			// scale the image to 10% of whatever screen size we are running on.

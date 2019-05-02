@@ -1,12 +1,11 @@
+// Simple Java Animation Example using Swing components.
+// Reference: http://zetcode.com/tutorials/javagamestutorial/animation/
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 
-//import javafx.application.Platform;
-//import javafx.embed.swing.JFXPanel;
-
 public class Driver {
-// http://zetcode.com/tutorials/javagamestutorial/animation/
+
 	public static void main(String[] args) {
 
 		// capture size of screen we're using
