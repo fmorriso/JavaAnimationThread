@@ -49,7 +49,7 @@ public class Board extends JPanel implements Runnable {
 
 		// load and scale the image
 		try {
-			File f = new File("images/spaceinvaders/player.png");
+			File f = new File("images/star.png");
 			if(!f.exists()){
 				String errorMessage = String.format("file %s does not exist", f.getAbsolutePath());
 				System.out.println(errorMessage);
