@@ -13,7 +13,7 @@ public class Driver {
 
 		// Define the size of the JFrame as a square that is a percentage of the
 		// available screen area and a multiple of 100.
-		final int frameHeight = (int) (screenSize.height * 85.00 / 100) / 100 * 100;
+		final int frameHeight = (int) (screenSize.height * 90.00 / 100) / 100 * 100;
 		final int frameWidth = frameHeight;
 
 		Dimension frameSize = new Dimension(frameWidth, frameHeight);
