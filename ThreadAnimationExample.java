@@ -1,10 +1,10 @@
 import java.awt.Dimension;
-import java.awt.EventQueue;
 //
 import javax.swing.JFrame;
 
 public class ThreadAnimationExample extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private Dimension frameSize;
 
 	public ThreadAnimationExample(Dimension frameSize) {
