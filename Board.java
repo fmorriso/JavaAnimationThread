@@ -24,7 +24,7 @@ public class Board extends JPanel implements Runnable {
 	private int INITIAL_Y = -40;
 	private final int DELAY = 25;
 
-	private Image star;
+	private Image scaledImage;
 	private Thread animator;
 	private int x, y;
 	private Dimension panelSize;
@@ -55,16 +55,15 @@ public class Board extends JPanel implements Runnable {
 				System.out.println(errorMessage);
 				this.setVisible(false);				
 				throw new FileNotFoundException(errorMessage);
-
 			}
-			Image image = ImageIO.read(f);
-			System.out.format("Image original width=%d, height=%d%n", image.getWidth(null), image.getHeight(null));
+			Image unscaledImage = ImageIO.read(f);
+			System.out.format("Image original width=%d, height=%d%n", unscaledImage.getWidth(null), unscaledImage.getHeight(null));
 			
 			// scale the image to 10% of whatever screen size we are running on.
 			int width = (int) (this.panelSize.width / 10.0);
 			int height = (int) (this.panelSize.height / 10.0);
-			star = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-			System.out.format("Image scaled width=%d, height=%d%n", star.getWidth(null), star.getHeight(null));
+			scaledImage = unscaledImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+			System.out.format("Image scaled width=%d, height=%d%n", scaledImage.getWidth(null), scaledImage.getHeight(null));
 			
 			// adjust the maximum movement limits of the image
 			B_WIDTH -= width / 2;
@@ -103,8 +102,8 @@ public class Board extends JPanel implements Runnable {
 
 	private void drawStar(Graphics g) {
 
-		// Image simg = new Image(star);
-		g.drawImage(star, x, y, this);
+		// Image simg = new Image(scaledImage);
+		g.drawImage(scaledImage, x, y, this);
 		Toolkit.getDefaultToolkit().sync();
 	}
 
