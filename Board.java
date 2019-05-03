@@ -58,8 +58,6 @@ public class Board extends JPanel implements Runnable {
 				throw new FileNotFoundException(errorMessage);
 			}
 			Image unscaledImage = ImageIO.read(f);
-			System.out.format("Image original width=%d, height=%d%n", unscaledImage.getWidth(null),
-					unscaledImage.getHeight(null));
 			return unscaledImage;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -142,16 +140,17 @@ public class Board extends JPanel implements Runnable {
 
 		beforeTime = System.currentTimeMillis();
 
-		while (true) {
+		for (int i = 0; i < 1000; i++) {
+			// while (true) {
 
 			moveImage();
 			repaint();
 			// reduce the amount of the sleep delay by how much time it took to move
 			// the image and repaint it:
 			timeDiff = System.currentTimeMillis() - beforeTime;
-			
+
 			// sleep for a minimum amount of milliseconds, possibly longer
-			sleep = Math.max( DELAY - timeDiff, MIN_DELAY);
+			sleep = Math.max(DELAY - timeDiff, MIN_DELAY);
 
 			try {
 				Thread.sleep(sleep);
