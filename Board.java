@@ -1,3 +1,4 @@
+
 // Simple Java Animation Example using Swing components.
 // Reference: http://zetcode.com/tutorials/javagamestutorial/animation/
 import java.awt.Color;
@@ -22,7 +23,8 @@ public class Board extends JPanel implements Runnable {
 	private int B_HEIGHT = 350;
 	private int INITIAL_X = -40;
 	private int INITIAL_Y = -40;
-	private final int DELAY = 25 / 2;
+	private final int DELAY = 25;
+	private final int MIN_DELAY = 2;
 
 	private Image scaledImage;
 	private Thread animator;
@@ -38,37 +40,52 @@ public class Board extends JPanel implements Runnable {
 		// We will further limit the movement once we get the scaled image.
 		B_HEIGHT = panelSize.height * 92 / 100;
 		B_WIDTH = panelSize.width * 92 / 100;
-		
+
 		INITIAL_X = 2;
 		INITIAL_Y = 2;
-		
+
 		initBoard();
+	}
+
+	private Image getImageFromFile(String imagePath) {
+
+		// load and scale the image
+		try {
+			File f = new File(imagePath);
+			if (!f.exists()) {
+				String errorMessage = String.format("file %s does not exist", f.getAbsolutePath());
+				System.out.println(errorMessage);
+				throw new FileNotFoundException(errorMessage);
+			}
+			Image unscaledImage = ImageIO.read(f);
+			System.out.format("Image original width=%d, height=%d%n", unscaledImage.getWidth(null),
+					unscaledImage.getHeight(null));
+			return unscaledImage;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	private void loadImage() {
 
 		// load and scale the image
 		try {
-			File f = new File("images/star.png");
-			if(!f.exists()){
-				String errorMessage = String.format("file %s does not exist", f.getAbsolutePath());
-				System.out.println(errorMessage);
-				this.setVisible(false);				
-				throw new FileNotFoundException(errorMessage);
-			}
-			Image unscaledImage = ImageIO.read(f);
-			System.out.format("Image original width=%d, height=%d%n", unscaledImage.getWidth(null), unscaledImage.getHeight(null));
-			
+			Image unscaledImage = getImageFromFile("images/star.png");
+			System.out.format("Image original width=%d, height=%d%n", unscaledImage.getWidth(null),
+					unscaledImage.getHeight(null));
+
 			// scale the image to 10% of whatever screen size we are running on.
 			int width = (int) (this.panelSize.width / 10.0);
 			int height = (int) (this.panelSize.height / 10.0);
 			scaledImage = unscaledImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-			System.out.format("Image scaled width=%d, height=%d%n", scaledImage.getWidth(null), scaledImage.getHeight(null));
-			
+			System.out.format("Image scaled width=%d, height=%d%n", scaledImage.getWidth(null),
+					scaledImage.getHeight(null));
+
 			// adjust the maximum movement limits of the image
 			B_WIDTH -= width / 2;
 			B_HEIGHT -= height / 2;
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -82,13 +99,12 @@ public class Board extends JPanel implements Runnable {
 		loadImage();
 
 		x = INITIAL_X;
-		y = INITIAL_Y;		
+		y = INITIAL_Y;
 	}
 
 	@Override
 	public void addNotify() {
 		super.addNotify();
-
 		animator = new Thread(this);
 		animator.start();
 	}
@@ -109,11 +125,11 @@ public class Board extends JPanel implements Runnable {
 
 		// change image's (x,y) coordinate so that it will move diagonally from top-left
 		// to top-right
-		x += B_WIDTH * 0.6 / 100.0;
-		y += B_HEIGHT * 0.6 / 100.0;
+		final double incrementalMove = 0.4 / 100.0;
+		x += B_WIDTH * incrementalMove;
+		y += B_HEIGHT * incrementalMove;
 
 		if (y > B_HEIGHT || x > B_WIDTH) {
-
 			y = INITIAL_Y;
 			x = INITIAL_X;
 		}
@@ -130,13 +146,12 @@ public class Board extends JPanel implements Runnable {
 
 			moveImage();
 			repaint();
-
+			// reduce the amount of the sleep delay by how much time it took to move
+			// the image and repaint it:
 			timeDiff = System.currentTimeMillis() - beforeTime;
-			sleep = DELAY - timeDiff;
-
-			if (sleep < 0) {
-				sleep = 2;
-			}
+			
+			// sleep for a minimum amount of milliseconds, possibly longer
+			sleep = Math.max( DELAY - timeDiff, MIN_DELAY);
 
 			try {
 				Thread.sleep(sleep);
