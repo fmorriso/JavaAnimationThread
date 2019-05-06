@@ -71,21 +71,27 @@ public class Board extends JPanel implements Runnable {
 	    Image unscaledImage = getImageFromFile("images/star.png");
 	    System.out.format("Image original width=%d, height=%d%n", unscaledImage.getWidth(null),
 		    unscaledImage.getHeight(null));
-
-	    // scale the image to 10% of whatever screen size we are running on.
-	    int width = (int) (this.panelSize.width / 10.0);
-	    int height = (int) (this.panelSize.height / 10.0);
-	    scaledImage = unscaledImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+	    
+	    // scale the image to a percentage of whatever screen size we are running on.
+	    final double widthPct = 0.1;
+	    final double heightPct = 0.1;
+	    scaledImage = getScaledImage(unscaledImage, this.panelSize.width, widthPct, this.panelSize.height, heightPct);
+	
 	    System.out.format("Image scaled width=%d, height=%d%n", scaledImage.getWidth(null),
 		    scaledImage.getHeight(null));
 
 	    // adjust the maximum movement limits of the image
-	    B_WIDTH -= width / 2;
-	    B_HEIGHT -= height / 2;
+	    B_WIDTH -= this.panelSize.width * widthPct / 2;
+	    B_HEIGHT -= this.panelSize.height * heightPct / 2;
 	} catch (Exception e) {
 	    e.printStackTrace();
 	}
 
+    }
+
+    private Image getScaledImage(Image unscaledImage, int width, double widthPct, int height, double heightPct) {
+	Image img = unscaledImage.getScaledInstance( (int)(width * widthPct), (int)(height * heightPct), Image.SCALE_SMOOTH);
+	return img;
     }
 
     private void initBoard() {
