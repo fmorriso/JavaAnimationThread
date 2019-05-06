@@ -115,7 +115,6 @@ public class Board extends JPanel implements Runnable {
     @Override
     public void paintComponent(Graphics g) {
 	super.paintComponent(g);
-
 	drawStar(g);
     }
 
